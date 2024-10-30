@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niveau 3</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .tube {
+            width: 20px;
+            height: 400px;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .eau {
+            width: 100%;
+            background-color: #0b720b;
+            position: absolute;
+            bottom: 0;
+            transition: height 1s linear;
+        }
+        .chrono {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+        .image-container {
+            width: 80%;
+            height: 80%;
+            margin-right: 10px;
+            border-radius: 20px;
+        }
+        .level-link {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <!-- Footer -->
+    <header class="bg-gray-800 text-white text-center py-4 flex justify-around">
+        <a href="index.html" class="level-link bg-red-500 hover:bg-red-600">
+            <span>Niveau 1</span>
+        </a>
+        <a href="niveau2.html" class="level-link bg-blue-500 hover:bg-blue-600">
+            <span>Niveau 2</span>
+        </a>
+        <a href="niveau3.html" class="level-link bg-green-500 hover:bg-green-600">
+            <span>Niveau 3</span>
+        </a>
+    </header>
+    <div class="bg-gray-900 text-white flex flex-wrap min-h-screen">
+        <!-- Partie gauche -->
+        <div class="flex-1 flex items-center justify-center flex-col bg-purple-300 relative w-full md:w-1/2">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-4">Joueur 1</h1>
+            <img src="/public/images/uaz.jpg" alt="Image 1" class="image-container"> 
+            <div class="controls flex items-center">
+                <div class="tube">
+                    <div class="eau" id="eau1" style="height: 100%;"></div>
+                </div>
+                <div class="chrono" id="chrono1">30 S</div>
+                <button id="start1" class="px-4 py-2 bg-blue-500 text-white rounded">Start</button>
+                <button id="pause1" class="px-4 py-2 bg-gray-500 text-white rounded">Pause</button>
+            </div>
+        </div>
+        
+        <!-- Partie droite -->
+        <div class="flex-1 flex items-center justify-center flex-col bg-yellow-300 relative w-full md:w-1/2">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-4">Joueur 2</h1>
+            <img src="/public/images/image.jpg" alt="Image 2" class="image-container"> 
+            <div class="controls flex items-center">
+                <div class="tube">
+                    <div class="eau" id="eau2" style="height: 100%;"></div>
+                </div>
+                <div class="chrono" id="chrono2">30 S</div>
+                <button id="start2" class="px-4 py-2 bg-blue-500 text-white rounded">Start</button>
+                <button id="pause2" class="px-4 py-2 bg-gray-500 text-white rounded">Pause</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let chrono1 = 30;
+        let chrono2 = 30;
+        let interval1, interval2;
+
+        // Fonction pour démarrer le chrono 1 et diminuer l'eau
+        document.getElementById("start1").onclick = function() {
+            clearInterval(interval1);
+            interval1 = setInterval(() => {
+                if (chrono1 > 0) {
+                    document.getElementById("chrono1").textContent = --chrono1 + " S";
+                    let height = (chrono1 / 30) * 100; // Calcul de la hauteur de l'eau
+                    document.getElementById("eau1").style.height = height + "%";
+                } else {
+                    clearInterval(interval1);
+                }
+            }, 1000);
+        };
+
+        // Fonction pour mettre en pause le chrono 1 et stopper la diminution de l'eau
+        document.getElementById("pause1").onclick = function() {
+            clearInterval(interval1);
+        };
+
+        // Fonction pour démarrer le chrono 2 et diminuer l'eau
+        document.getElementById("start2").onclick = function() {
+            clearInterval(interval2);
+            interval2 = setInterval(() => {
+                if (chrono2 > 0) {
+                    document.getElementById("chrono2").textContent = --chrono2 + " S";
+                    let height = (chrono2 / 30) * 100; // Calcul de la hauteur de l'eau
+                    document.getElementById("eau2").style.height = height + "%";
+                } else {
+                    clearInterval(interval2);
+                }
+            }, 1000);
+        };
+
+        // Fonction pour mettre en pause le chrono 2 et stopper la diminution de l'eau
+        document.getElementById("pause2").onclick = function() {
+            clearInterval(interval2);
+        };
+    </script>
+</body>
+</html>
